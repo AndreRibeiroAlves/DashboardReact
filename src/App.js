@@ -7,6 +7,7 @@ import {
   GoogleMap,
   Marker,
 } from "react-google-maps";
+import GoogleMapStyle from './GoogleMapStyle'
 
 /*const AnyReactComponent = ({ text }) => <div>{text}</div>;*/
 
@@ -35,6 +36,14 @@ const MapWithAMarker = withScriptjs(withGoogleMap(props =>
   <GoogleMap
     defaultZoom={8}
     defaultCenter={{ lat: -34.397, lng: 150.644 }}
+	  defaultOptions={{
+		disableDefaultUI: true, // disable default map UI
+		draggable: true, // make map draggable
+		keyboardShortcuts: false, // disable keyboard shortcuts
+		scaleControl: true, // allow scale controle
+		scrollwheel: true, // allow scroll wheel
+		styles: GoogleMapStyle() // change default map styles
+	  }}
   >
     <Marker
       position={{ lat: -34.397, lng: 150.644 }}
