@@ -1,6 +1,4 @@
-function GoogleMapStyle(){
-
-  return [
+[
     {
         "featureType": "all",
         "elementType": "labels.text.fill",
@@ -137,6 +135,3 @@ function GoogleMapStyle(){
         ]
     }
 ]
-};
-
-export default GoogleMapStyle

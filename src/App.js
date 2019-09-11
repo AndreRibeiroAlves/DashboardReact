@@ -7,7 +7,7 @@ import {
   GoogleMap,
   Marker,
 } from "react-google-maps";
-import GoogleMapStyle from './GoogleMapStyle'
+const styles = require('./GoogleMapStyles.json')
 
 /*const AnyReactComponent = ({ text }) => <div>{text}</div>;*/
 
@@ -42,7 +42,7 @@ const MapWithAMarker = withScriptjs(withGoogleMap(props =>
 		keyboardShortcuts: false, // disable keyboard shortcuts
 		scaleControl: true, // allow scale controle
 		scrollwheel: true, // allow scroll wheel
-		styles: GoogleMapStyle() // change default map styles
+		styles: styles // change default map styles
 	  }}
   >
     <Marker
