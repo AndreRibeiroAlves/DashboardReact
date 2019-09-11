@@ -1,39 +1,65 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
-import GoogleMaps from "simple-react-google-maps"
+
+import { compose, withProps } from "recompose"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
 /*const AnyReactComponent = ({ text }) => <div>{text}</div>;*/
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Dashboard React Web Teste
-        </p>
-		<SimpleMap/>
-      </header>
+	  <MyFancyComponent/>
     </div>
   );
 }
 
-class SimpleMap extends Component {
+const MyMapComponent = compose(
+  withProps({
+    googleMapURL:"https://maps.googleapis.com/maps/api/js?key=AIzaSyBT48L_cAyd3UkgDzILVfwwpbX_88f9too&v=3.exp&libraries=geometry,drawing,places",
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `800px`  }} />,
+    mapElement: <div style={{ height: `100%` }} />,
+  }),
+  withScriptjs,
+  withGoogleMap
+)((props) =>
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+  >
+    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
+  </GoogleMap>
+);
+
+class MyFancyComponent extends React.PureComponent {
+  state = {
+    isMarkerShown: false,
+  }
+
+  componentDidMount() {
+    this.delayedShowMarker()
+  }
+
+  delayedShowMarker = () => {
+    setTimeout(() => {
+      this.setState({ isMarkerShown: true })
+    }, 3000)
+  }
+
+  handleMarkerClick = () => {
+    this.setState({ isMarkerShown: false })
+    this.delayedShowMarker()
+  }
 
   render() {
     return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMaps
-		  apiKey={"AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg"}
-		  style={{height: "400px", width: "100%"}}
-		  zoom={6}
-		  center={{lat: -27.2106710, lng: -49.6362700}}
-		  markers={{lat: -27.2106710, lng: -49.6362700}} //optional
-		/>
-      </div>
-    );
+      <MyMapComponent
+        isMarkerShown={this.state.isMarkerShown}
+        onMarkerClick={this.handleMarkerClick}
+      />
+    )
   }
 }
 
