@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+import GoogleMaps from "simple-react-google-maps"
 
 /*const AnyReactComponent = ({ text }) => <div>{text}</div>;*/
 
@@ -20,29 +20,18 @@ function App() {
 }
 
 class SimpleMap extends Component {
-  static defaultProps = {
-    center: {
-      lat: -27.2106710,
-      lng: -49.6362700
-    },
-    zoom: 11
-  };
 
   render() {
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyBT48L_cAyd3UkgDzILVfwwpbX_88f9too' }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-		{/*<AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
-		/>*/}
-        </GoogleMapReact>
+        <GoogleMaps
+		  apiKey={"AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg"}
+		  style={{height: "400px", width: "100%"}}
+		  zoom={6}
+		  center={{lat: -27.2106710, lng: -49.6362700}}
+		  markers={{lat: -27.2106710, lng: -49.6362700}} //optional
+		/>
       </div>
     );
   }
