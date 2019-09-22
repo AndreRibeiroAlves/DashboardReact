@@ -84,3 +84,10 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ### https://github.com/google-map-react/google-map-react
 ### https://tomchentw.github.io/react-google-maps/
 ### https://github.com/mypwhas9letters/simple-react-google-maps
+### https://levelup.gitconnected.com/reactjs-google-maps-with-custom-marker-ece0c7d184c4
+### https://dev.to/jessicabetts/how-to-use-google-maps-api-and-react-js-26c2
+### https://medium.com/@yelstin.fernandes/render-a-map-component-using-react-google-maps-5f7fb3e418bb
+### https://engineering.universe.com/building-a-google-map-in-react-b103b4ee97f1
+### https://github.com/google-map-react/google-map-react
+### https://github.com/tomchentw/tomchentw.github.io/blob/master/src/Pages/Demos/ReactGoogleMaps.jsx
+### https://github.com/google-map-react/google-map-react
