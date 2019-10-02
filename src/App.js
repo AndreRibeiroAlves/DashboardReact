@@ -1,45 +1,26 @@
-import React, { Component } from 'react'
-import Leaflet from 'leaflet';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import React from 'react';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-Leaflet.Icon.Default.imagePath =
-'../node_modules/leaflet'
+class Map extends React.Component {
+  componentDidMount() {
+    // create map
+    this.map = L.map('map', {
+      center: [-22.1225167, -51.3882528],
+      zoom: 16,
+      layers: [
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png', {
+          attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, © <a href="https://carto.com/attribution">CARTO</a>',
+          maxNativeZoom:19,
+		  maxZoom: 20
+        }),
+      ]
+    });
+  }
 
-delete Leaflet.Icon.Default.prototype._getIconUrl;
-
-Leaflet.Icon.Default.mergeOptions({
-    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-    iconUrl: require('leaflet/dist/images/marker-icon.png'),
-    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-});
-
-
-
-class App extends Component {
-state = {
-	lat: -34.397,
-	lng: 150.644,
-    zoom: 13,
+  render() {
+    return <div style={{height: 600}}id="map"></div>
+  }
 }
 
-
-render() {
-    const position = [this.state.lat, this.state.lng]
-    return (
-    <Map center={position} zoom={this.state.zoom} style={{height : '720px'}}>
-        <TileLayer
-        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position}>
-        <Popup>
-            Son Konum
-        </Popup>
-        </Marker>
-    </Map>
-    )
-}
-}
-
-export default App;
+export default Map;
