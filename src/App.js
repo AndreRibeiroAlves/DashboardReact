@@ -38,6 +38,16 @@ class Map extends React.Component {
             Sensor.
           </Popup>
         </Marker>
+        <Marker position={[-22.1236167, -51.3742528]}>
+          <Popup>
+            Sensor.
+          </Popup>
+        </Marker>
+        <Marker position={[-22.1285167, -51.3882528]}>
+          <Popup>
+            Sensor.
+          </Popup>
+        </Marker>
       </LeafletMap>
     );
   }
