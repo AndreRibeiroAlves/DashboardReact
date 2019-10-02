@@ -1,54 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { Component } from 'react';
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-} from "react-google-maps";
-const styles = require('./GoogleMapStyles.json')
+import React, { Component } from 'react'
+import Leaflet from 'leaflet';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css';
 
-/*const AnyReactComponent = ({ text }) => <div>{text}</div>;*/
+Leaflet.Icon.Default.imagePath =
+'../node_modules/leaflet'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Dashboard React Web Teste
-        </p>
-      </header>
-	  <body>
-		<MapWithAMarker
-		  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT48L_cAyd3UkgDzILVfwwpbX_88f9too&v=3.exp&libraries=geometry,drawing,places" 
-		  loadingElement={<div style={{ height: `100%` }} />}
-		  containerElement={<div style={{ height: `400px` }} />}
-		  mapElement={<div style={{ height: `100%` }} />}
-		/>
-	  </body>
-    </div>
-  );
+delete Leaflet.Icon.Default.prototype._getIconUrl;
+
+Leaflet.Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
+
+
+
+class App extends Component {
+state = {
+	lat: -34.397,
+	lng: 150.644,
+    zoom: 13,
 }
 
-const MapWithAMarker = withScriptjs(withGoogleMap(props =>
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-	  defaultOptions={{
-		disableDefaultUI: true, // disable default map UI
-		draggable: true, // make map draggable
-		keyboardShortcuts: false, // disable keyboard shortcuts
-		scaleControl: true, // allow scale controle
-		scrollwheel: true, // allow scroll wheel
-		styles: styles // change default map styles
-	  }}
-  >
-    <Marker
-      position={{ lat: -34.397, lng: 150.644 }}
-    />
-  </GoogleMap>
-));
+
+render() {
+    const position = [this.state.lat, this.state.lng]
+    return (
+    <Map center={position} zoom={this.state.zoom} style={{height : '720px'}}>
+        <TileLayer
+        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={position}>
+        <Popup>
+            Son Konum
+        </Popup>
+        </Marker>
+    </Map>
+    )
+}
+}
 
 export default App;
