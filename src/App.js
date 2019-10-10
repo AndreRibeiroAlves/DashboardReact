@@ -1,9 +1,11 @@
 import React from 'react'
 import Leaflet from 'leaflet';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
-import './leaflet/dist/leaflet.css';
 import Sidebar from 'leaflet-sidebar'
 import L from 'leaflet';
+
+import './leaflet/dist/leaflet.css';
+import './leaflet-sidebar/L.Control.Sidebar.css';
 
 ///https://dev.to/itsmestevieg/customising-leafletjs-f55
 ///https://leafletjs.com/plugins.html
@@ -28,40 +30,64 @@ Leaflet.Icon.Default.mergeOptions({
 });
 
 class Map extends React.Component {
+	constructor(props){
+		super(props);
+		this.state={ID:-1};
+	}
+	
+  handleChange = (newValue) => {
+    this.props.setState({ ID: newValue });
+  }
+  
   componentDidMount() {
 	  
-    var map = L.map('map', {
-      center: [-22.1225167, -51.3882528],
-      zoom: 16,
-      layers: [
-        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png', {
-          attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, © <a href="https://carto.com/attribution">CARTO</a>',
-          maxNativeZoom:19,
-		  maxZoom: 20
-        }),
-      ]
-    });
+     var map = L.map('map');
+        map.setView([-22.1225167, -51.3862528], 16);
 
-	var sidebar = L.control.sidebar('sidebar', {
-		closeButton: true,
-		position: 'left'
-	});
-	map.addControl(sidebar);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; OpenStreetMap contributors'
+        }).addTo(map);
 
-	setTimeout(function () {
-		sidebar.show();
-	}, 500);
-	
-	var marker = L.marker([49.46, 17.11]).addTo(map).on('click', function () {
-		sidebar.toogle()
-		marker.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+        var sidebar = L.control.sidebar('sidebar', {
+            closeButton: true,
+            position: 'right'
+        });
+        map.addControl(sidebar);
 
-	});
-
+        map.on('click', function () {
+            sidebar.hide();
+        })
+		
+		var ID = 0;
+		var funcao = function () {
+            sidebar.toggle();
+			/*this.setState({ID: 0});*/
+        }
+		this.setState({ID});
+		
+        L.marker([-22.1225167, -51.3862528]).addTo(map).on('click', funcao);
+		L.marker([-22.1226167, -51.3878528]).addTo(map).on('click', funcao);
+		L.marker([-22.1215167, -51.3842528]).addTo(map).on('click', funcao);
+		L.marker([-22.1236167, -51.3742528]).addTo(map).on('click', funcao);
+		L.marker([-22.1285167, -51.3882528]).addTo(map).on('click', funcao);
+		
   }
 
   render() {
-    return <div style={{height: 600}}id="map"></div>
+    return  <div>
+				<div id="sidebar">
+					<h1>Sensor: {this.state.ID}</h1>
+
+					<p>Gráfico 1</p>
+					<p>Gráfico 2</p>
+					<p>Gráfico 3</p>
+					<p>Gráfico 4</p>
+					<p>Gráfico 5</p>
+				</div>
+
+				<div id="map" style={{height: 600}}></div>
+			</div>
   }
 }
 
