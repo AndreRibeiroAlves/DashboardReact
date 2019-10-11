@@ -1,6 +1,6 @@
 import React from 'react'
 import Leaflet from 'leaflet';
-import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import Sidebar from 'leaflet-sidebar'
 import L from 'leaflet';
 
@@ -29,66 +29,31 @@ Leaflet.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-class Map extends React.Component {
-	constructor(props){
-		super(props);
-		this.state={ID:-1};
-	}
-	
-  handleChange = (newValue) => {
-    this.props.setState({ ID: newValue });
-  }
-  
-  componentDidMount() {
-	  
-     var map = L.map('map');
-        map.setView([-22.1225167, -51.3862528], 16);
-
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        var sidebar = L.control.sidebar('sidebar', {
-            closeButton: true,
-            position: 'right'
-        });
-        map.addControl(sidebar);
-
-        map.on('click', function () {
-            sidebar.hide();
-        })
-		
-		var ID = 0;
-		var funcao = function () {
-            sidebar.toggle();
-			/*this.setState({ID: 0});*/
-        }
-		this.setState({ID});
-		
-        L.marker([-22.1225167, -51.3862528]).addTo(map).on('click', funcao);
-		L.marker([-22.1226167, -51.3878528]).addTo(map).on('click', funcao);
-		L.marker([-22.1215167, -51.3842528]).addTo(map).on('click', funcao);
-		L.marker([-22.1236167, -51.3742528]).addTo(map).on('click', funcao);
-		L.marker([-22.1285167, -51.3882528]).addTo(map).on('click', funcao);
-		
+class Mapa extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      lat: 51.505,
+      lng: -0.09,
+      zoom: 13
+    }
   }
 
   render() {
-    return  <div>
-				<div id="sidebar">
-					<h1>Sensor: {this.state.ID}</h1>
-
-					<p>Gráfico 1</p>
-					<p>Gráfico 2</p>
-					<p>Gráfico 3</p>
-					<p>Gráfico 4</p>
-					<p>Gráfico 5</p>
-				</div>
-
-				<div id="map" style={{height: 600}}></div>
-			</div>
+    const position = [this.state.lat, this.state.lng];
+    const map = (
+      <Map center={position} zoom={13}>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+        />
+        <Marker position={position}>
+          <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
+        </Marker>
+      </Map>
+    )
+    return <map/>;
   }
 }
 
-export default Map;
+export default Mapa;
