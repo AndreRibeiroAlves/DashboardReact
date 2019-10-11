@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from "react";
 import Leaflet from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import Sidebar from 'leaflet-sidebar'
-import L from 'leaflet';
-
+import { Sidebar, Tab } from "react-leaflet-sidetabs";
+import { FiHome, FiChevronRight, FiSearch, FiSettings, FiBarChart, FiInfo } from "react-icons/fi";
+import "./styles.css";
 import './leaflet/dist/leaflet.css';
 import './leaflet-sidebar/L.Control.Sidebar.css';
 
@@ -29,31 +29,74 @@ Leaflet.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-class Mapa extends React.Component {
-  constructor() {
-    super()
+export default class Mapa extends Component {
+  constructor(props) {
+    super(props);
+    this.center = [53.8008, -1.5491];
+
     this.state = {
-      lat: 51.505,
-      lng: -0.09,
-      zoom: 13
-    }
+      collapsed: true,
+      selected: "informacoes",
+      sensor: -1
+    };
+  }
+
+  onClose() {
+    this.setState({ collapsed: true });
+  }
+  onOpen(id) {
+    this.setState({
+      collapsed: false,
+      selected: id
+    });
   }
 
   render() {
-    const position = [this.state.lat, this.state.lng];
-    const map = (
-      <Map center={position} zoom={13}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-        />
-        <Marker position={position}>
-          <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-        </Marker>
-      </Map>
-    )
-    return <map/>;
+    return (
+      <>
+        <Sidebar
+          id="sidebar"
+          position="right"
+          collapsed={this.state.collapsed}
+          closeIcon={<FiChevronRight />}
+          selected={this.state.selected}
+          onOpen={this.onOpen.bind(this)}
+          onClose={this.onClose.bind(this)}
+        >
+          <Tab id="informacoes" header="Informações" icon={<FiInfo />}>
+            <h3>Sensor {this.state.sensor}</h3>
+            <p>Informações</p>
+          </Tab>
+          <Tab id="graficos" header="Graficos" icon={<FiBarChart />}>
+            <p>Gráficos</p>
+          </Tab>
+          <Tab id="busca" header="Busca" icon={<FiSearch />}>
+            <p>Sensores na região</p>
+          </Tab>
+          <Tab
+            id="configuracoes"
+            header="configurações"
+            anchor="bottom"
+            icon={<FiSettings />}
+          >
+            <p>Configurações Gerais</p>
+          </Tab>
+        </Sidebar>
+
+        <Map className="mapStyle" zoom={13} center={this.center}>
+          <TileLayer
+            attribution=""
+            url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
+          />
+          <Marker position={[53.8008, -1.5491]}>
+            <Popup>
+                <a onClick={() => { this.setState({ collapsed: !this.state.collapsed, sensor: 1 });}}>
+                    Mostrar Gráficos
+                </a>
+            </Popup>
+          </Marker>
+        </Map>
+      </>
+    );
   }
 }
-
-export default Mapa;
