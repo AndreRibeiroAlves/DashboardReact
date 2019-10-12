@@ -8,6 +8,7 @@
     "google-map-react": "^1.1.4",
     "leaflet": "^1.5.1",
     "leaflet-sidebar": "^0.2.0",
+    "reacharts": "^0.4.5",
     "react": "^16.9.0",
     "react-dimensions": "^1.3.1",
     "react-dom": "^16.9.0",
@@ -18,6 +19,7 @@
     "react-leaflet-sidetabs": "^1.0.1",
     "react-scripts": "^3.2.0",
     "react-sidebar": "^3.0.2",
+    "recharts": "^1.7.1",
     "simple-react-google-maps": "^1.1.2",
     "webpack": "^4.39.1"
   },
