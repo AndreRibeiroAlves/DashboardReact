@@ -21,7 +21,7 @@ export default class StackedBarChart extends PureComponent {
         ];
         return (
             <BarChart
-            width={300}
+            width={362}
             height={200}
             data={data}
             margin={{

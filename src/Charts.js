@@ -1,4 +1,5 @@
 import ActiveShapePieChart from './ActiveShapePieChart'
 import StackedBarChart from './StackedBarChart.js'
+import StackedAreaChart from './StackedAreaChart.js'
 
-export {ActiveShapePieChart, StackedBarChart};
+export {ActiveShapePieChart, StackedBarChart, StackedAreaChart};

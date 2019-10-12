@@ -3,7 +3,7 @@ import Leaflet from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Sidebar, Tab } from "react-leaflet-sidetabs";
 import { FiHome, FiChevronRight, FiSearch, FiSettings, FiBarChart, FiInfo } from "react-icons/fi";
-import {ActiveShapePieChart, StackedBarChart} from './Charts';
+import {ActiveShapePieChart, StackedBarChart, StackedAreaChart} from './Charts';
 import "./styles.css";
 import './leaflet/dist/leaflet.css';
 
@@ -88,7 +88,7 @@ export default class Mapa extends Component {
             <p>Gráficos</p>
             <StackedBarChart/>
             <ActiveShapePieChart/>
-            <StackedBarChart/>
+            <StackedAreaChart/>
           </Tab>
           <Tab id="busca" header="Busca" icon={<FiSearch />}>
             <p>Sensores na região</p>
