@@ -5,7 +5,6 @@ import { Sidebar, Tab } from "react-leaflet-sidetabs";
 import { FiHome, FiChevronRight, FiSearch, FiSettings, FiBarChart, FiInfo } from "react-icons/fi";
 import "./styles.css";
 import './leaflet/dist/leaflet.css';
-import './leaflet-sidebar/L.Control.Sidebar.css';
 
 ///https://dev.to/itsmestevieg/customising-leafletjs-f55
 ///https://leafletjs.com/plugins.html
@@ -32,12 +31,13 @@ Leaflet.Icon.Default.mergeOptions({
 export default class Mapa extends Component {
   constructor(props) {
     super(props);
-    this.center = [53.8008, -1.5491];
+    this.center = [-22.1225167, -51.3862528];
 
     this.state = {
       collapsed: true,
       selected: "informacoes",
-      sensor: -1
+      sensor: -1,
+      sensores: sensores
     };
   }
 
@@ -83,20 +83,49 @@ export default class Mapa extends Component {
           </Tab>
         </Sidebar>
 
-        <Map className="mapStyle" zoom={13} center={this.center}>
+        <Map className="mapStyle" zoom={15} center={this.center}>
           <TileLayer
-            attribution=""
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
           />
-          <Marker position={[53.8008, -1.5491]}>
-            <Popup>
-                <a onClick={() => { this.setState({ collapsed: !this.state.collapsed, sensor: 1 });}}>
-                    Mostrar Gráficos
-                </a>
-            </Popup>
-          </Marker>
+          {this.state.sensores.map((todo, id) => 
+            <Marker position={[todo.lat, todo.long]}>
+              <Popup>
+                  <a onClick={() => { this.setState({ collapsed: !this.state.collapsed, sensor: todo.id });}}>
+                      Mostrar Gráficos
+                  </a>
+              </Popup>
+          </Marker>)};
         </Map>
       </>
     );
   }
 }
+
+const sensores = [
+  {
+    id: 1,
+    lat: -22.1225167,
+    long: -51.3862528
+  },
+  {
+    id: 2,
+    lat: -22.1226167,
+    long: -51.3878528
+  },
+  {
+    id: 3,
+    lat: -22.1215167,
+    long: -51.3842528
+  },
+  {
+    id: 4,
+    lat: -22.1236167,
+    long: -51.3742528
+  },
+  {
+    id: 5,
+    lat: -22.1285167,
+    long: -51.3882528
+  },
+]
