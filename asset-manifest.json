@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/DashboardReact/static/css/main.3c71997e.chunk.css",
-    "main.js": "/DashboardReact/static/js/main.d040ced7.chunk.js",
-    "main.js.map": "/DashboardReact/static/js/main.d040ced7.chunk.js.map",
+    "main.js": "/DashboardReact/static/js/main.410783f5.chunk.js",
+    "main.js.map": "/DashboardReact/static/js/main.410783f5.chunk.js.map",
     "runtime-main.js": "/DashboardReact/static/js/runtime-main.01e6f15a.js",
     "runtime-main.js.map": "/DashboardReact/static/js/runtime-main.01e6f15a.js.map",
-    "static/js/2.76b5053a.chunk.js": "/DashboardReact/static/js/2.76b5053a.chunk.js",
-    "static/js/2.76b5053a.chunk.js.map": "/DashboardReact/static/js/2.76b5053a.chunk.js.map",
+    "static/js/2.e0275037.chunk.js": "/DashboardReact/static/js/2.e0275037.chunk.js",
+    "static/js/2.e0275037.chunk.js.map": "/DashboardReact/static/js/2.e0275037.chunk.js.map",
     "index.html": "/DashboardReact/index.html",
-    "precache-manifest.0c81c3c946aa7e43e9694a2decfe8b1b.js": "/DashboardReact/precache-manifest.0c81c3c946aa7e43e9694a2decfe8b1b.js",
+    "precache-manifest.8206aa9491fbf4d6d1f84552fce75e04.js": "/DashboardReact/precache-manifest.8206aa9491fbf4d6d1f84552fce75e04.js",
     "service-worker.js": "/DashboardReact/service-worker.js",
     "static/css/main.3c71997e.chunk.css.map": "/DashboardReact/static/css/main.3c71997e.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.01e6f15a.js",
-    "static/js/2.76b5053a.chunk.js",
+    "static/js/2.e0275037.chunk.js",
     "static/css/main.3c71997e.chunk.css",
-    "static/js/main.d040ced7.chunk.js"
+    "static/js/main.410783f5.chunk.js"
   ]
 }
