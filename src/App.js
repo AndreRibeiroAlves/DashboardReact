@@ -16,6 +16,8 @@ import './leaflet/dist/leaflet.css';
 ///https://www.npmjs.com/package/leaflet-sidebar
 ///https://stackoverflow.com/questions/54047240/leaflet-js-with-tabletop-js-sidebar-menu-for-map
 ///https://codepen.io/danhahn/pen/QKwEXN
+///Map Themes: https://leaflet-extras.github.io/leaflet-providers/preview/
+///https://www.thunderforest.com/pricing/
 
 Leaflet.Icon.Default.imagePath =
 '../node_modules/leaflet'
@@ -31,12 +33,12 @@ Leaflet.Icon.Default.mergeOptions({
 export default class Mapa extends Component {
   constructor(props) {
     super(props);
-    this.center = [-22.1225167, -51.3862528];
 
     this.state = {
       collapsed: true,
       selected: "informacoes",
       sensor: -1,
+      center: [-22.1225167, -51.3862528],
       sensores: sensores
     };
   }
@@ -48,6 +50,20 @@ export default class Mapa extends Component {
     this.setState({
       collapsed: false,
       selected: id
+    });
+  }
+  
+  onClickMarker(todo) {
+    this.setState({
+      collapsed: true,
+      center: [ todo.lat, todo.long ]
+    });
+  }
+  
+  onClickPinDashboardLink(todo) {
+    this.setState({
+      collapsed: !this.state.collapsed,
+      sensor: todo.id 
     });
   }
 
@@ -83,15 +99,19 @@ export default class Mapa extends Component {
           </Tab>
         </Sidebar>
 
-        <Map className="mapStyle" zoom={15} center={this.center}>
+        <Map className="mapStyle"
+          zoom={15}
+          center={this.state.center}
+          onClick={() => { this.setState({ collapsed: true });}}
+        >
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
           />
           {this.state.sensores.map((todo, id) => 
-            <Marker position={[todo.lat, todo.long]}>
+            <Marker position={[todo.lat, todo.long]} onClick={() => this.onClickMarker(todo)}> 
               <Popup>
-                  <a onClick={() => { this.setState({ collapsed: !this.state.collapsed, sensor: todo.id });}}>
+                  <a onClick={() => this.onClickPinDashboardLink(todo)}>
                       Mostrar Gráficos
                   </a>
               </Popup>
